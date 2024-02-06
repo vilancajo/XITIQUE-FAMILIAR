@@ -1,0 +1,119 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #141010;
+    margin: 20px;
+    padding-bottom: 60px; /* Adicione uma margem inferior ao corpo para acomodar o rodapé */
+  }
+  
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Adicione uma margem inferior ao formulário */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  input:focus, select:focus {
+    border-color: #2ecc71;
+    outline: none;
+  }
+  
+  .input-group {
+    position: relative;
+  }
+  
+  .input-group-addon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+  }
+  
+  button {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 15px 20px;
+    border: 25px;
+    margin-top: 2px; /* Ajuste conforme necessário */
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #27ae60;
+  }
+  
+  .success-message {
+    color: #2ecc71;
+    margin-top: 15px;
+  }
+  
+  #textCarousel {
+    max-width: 100%;
+    margin-top: 30px;
+    color: #333;
+  }
+  
+  #textCarousel .carousel-inner {
+    text-align: center;
+  }
+  
+  #textCarousel .carousel-inner p {
+    font-size: 18px;
+    margin: 20px;
+  }
+  
+  .title-icon {
+    margin-right: 5px;
+  }
+  
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 5%;
+    border: 5px solid greenyellow;
+  }
+  
+  .button-container {
+    margin-bottom: 60px; /* Ajuste conforme necessário para dar espaço ao rodapé */
+  }
+  
+  .button-container button {
+    margin-top: 20px; /* Ajuste conforme necessário para dar espaço ao rodapé */
+  }
+  
+  .footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+    width: 100%;
+    padding: 10px; /* Adicionado para dar espaço ao redor do conteúdo do rodapé */
+    background-color: #111eda; /* Fundo branco para melhorar a legibilidade */
+    box-shadow: 0 -5px 5px -5px #333; /* Sombra para separar do conteúdo principal */
+  }
+.fole{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}  

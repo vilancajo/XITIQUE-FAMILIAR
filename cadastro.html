@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XITIQUE FAMÍLIAR - Formulário de Login</title>
+<!-- Inclua o arquivo CSS do SweetAlert2 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+<style>
+  /* Estilos CSS */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+</style>
+</head>
+<body>
+<div class="container" id="formLogin">
+  <h2>XITIQUE FAMÍLIAR - Formulário de Login</h2>
+  <input type="email" id="username" placeholder="Nome de usuário ou endereço de e-mail">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <p>Não tem uma conta? <a href="#" onclick="mostrarFormularioCriarConta()">Criar conta</a></p>
+</div>
+
+<div class="container" id="formCriarConta" style="display: none;">
+  <h2>Criar Conta</h2>
+  <input type="text" id="fullName" placeholder="Nome completo">
+  <input type="email" id="email" placeholder="Endereço de e-mail">
+  <input type="password" id="newPassword" placeholder="Senha">
+  <input type="password" id="confirmPassword" placeholder="Confirmar senha">
+  <button onclick="criarConta()">Criar Conta</button>
+  <p>Já tem uma conta? <a href="#" onclick="mostrarFormularioLogin()">Fazer login</a></p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD8XOHaLCzNLDrIlHG3em4g4gyYIKTLWpQ",
+    authDomain: "xitique-61310.firebaseapp.com",
+    databaseURL: "https://xitique-61310-default-rtdb.firebaseio.com",
+    projectId: "xitique-61310",
+    storageBucket: "xitique-61310.appspot.com",
+    messagingSenderId: "331274991404",
+    appId: "1:331274991404:web:2fec0eb082d3fe0b33de89",
+    measurementId: "G-DFDMBKW1RK"
+  };
+  // Inicializar o Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Função de login
+  function login() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    firebase.auth().signInWithEmailAndPassword(username, password)
+        .then((userCredential) => {
+            // Verifica se o e-mail foi verificado
+            if (!userCredential.user.emailVerified) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'E-mail não verificado!',
+                    text: 'Por favor, verifique seu e-mail antes de fazer login.'
+                });
+                return;
+            }
+
+            // Login bem-sucedido
+            console.log("Usuário logado:", userCredential.user);
+            Swal.fire({
+                icon: 'success',
+                title: 'Login bem-sucedido!',
+                showConfirmButton: false,
+                timer: 1000
+            }).then(() => {
+                // Redirecionar para a página index.html
+                window.location.href = 'index.html';
+            });
+            // Limpar campos após login bem-sucedido
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        })
+        .catch((error) => {
+            // Tratamento de erros
+            console.error("Erro de login:", error.message);
+            if (error.code === "auth/invalid-email" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Credenciais Inválidas!',
+                    text: 'Por favor, verifique seu nome de usuário ou senha.'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de login!',
+                    text: 'Ocorreu um erro durante o login.'
+                });
+            }
+        });
+}
+
+// Função de criação de conta
+function criarConta() {
+    var fullName = document.getElementById("fullName").value;
+    var email = document.getElementById("email").value;
+    var newPassword = document.getElementById("newPassword").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (newPassword !== confirmPassword) {
+        // Senhas não coincidem
+        Swal.fire({
+            icon: 'error',
+            title: 'As senhas não coincidem!',
+            text: 'Por favor, verifique suas senhas.'
+        });
+        return;
+    }
+
+    firebase.auth().createUserWithEmailAndPassword(email, newPassword)
+        .then((userCredential) => {
+            // Envie e-mail de verificação
+            userCredential.user.sendEmailVerification();
+
+            // Conta criada com sucesso
+            console.log("Nova conta criada:", userCredential.user);
+            Swal.fire({
+                icon: 'success',
+                title: 'Conta criada com sucesso!',
+                text: 'Um e-mail de verificação foi enviado para ' + email,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            // Limpar campos após criação de conta bem-sucedida
+            document.getElementById("fullName").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("newPassword").value = "";
+            document.getElementById("confirmPassword").value = "";
+        })
+        .catch((error) => {
+            // Tratamento de erros
+            console.error("Erro ao criar conta:", error.message);
+            if (error.code === "auth/email-already-in-use") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'E-mail em Uso!',
+                    text: 'O endereço de e-mail fornecido já está sendo usado por outra conta.'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Falha na criação!',
+                    text: 'Ocorreu um erro durante a criação da conta.'
+                });
+            }
+        });
+}
+
+// Função para mostrar o formulário de criar conta e ocultar o de login
+function mostrarFormularioCriarConta() {
+    document.getElementById("formLogin").style.display = "none";
+    document.getElementById("formCriarConta").style.display = "block";
+}
+
+// Função para mostrar o formulário de login e ocultar o de criar conta
+function mostrarFormularioLogin() {
+    document.getElementById("formLogin").style.display = "block";
+    document.getElementById("formCriarConta").style.display = "none";
+}
+</script>
+</body>
+</html>

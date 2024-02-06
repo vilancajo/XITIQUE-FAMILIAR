@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entenda o Reembolso do Grupo XITIQUE FAMÍLIAR</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2980b9, #6dd5fa, #ffffff);
+            color: #333;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #2ecc71;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+            animation: fadeInDown 1s ease;
+        }
+        h1 {
+            color: #fff ;
+        }
+        h2 {
+          color:#2ecc71;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: zoomIn 1s ease;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            animation: fadeInUp 1s ease;
+        }
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <div>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Reembolso</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.3.0/sweetalert2.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .jumbotron {
+            background: linear-gradient(to right, #007bff, #17a2b8);
+            color: white;
+            border-radius: 15px;
+        }
+        .carousel-item h3 {
+            font-size: 18px;
+            color: white;
+            border: 1px solid white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        footer {
+            background: linear-gradient(to right, #007bff, #17a2b8);
+            color: white;
+            padding: 20px 0;
+        }
+        .green-container {
+            background: linear-gradient(to right, #28a745, #218838);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron text-center mb-4">
+        <h1 class="display-4"><i class="fas fa-coins"></i> Bem-vindo à Calculadora de Reembolso!</h1>
+        <p class="lead">Aqui você pode calcular o valor do reembolso que precisa fazer para a empresa XITIQUE FAMILIAR.</p>
+        <hr class="my-4">
+        <p>Saiba quanto será o valor total do reembolso após 30 dias.</p>
+        <button class="btn btn-success btn-lg" id="reembolsoBtn">Pretende fazer reembolso?</button>
+    </div>
+
+    <div id="valorInput" style="display: none;">
+        <h2 class="text-center mb-4">Insira o Valor emprestado</h2>
+        <div class="form-group">
+            <input type="number" class="form-control mb-3" id="valorEmprestado" placeholder="Valor emprestado">
+        </div>
+        <button class="btn btn-primary btn-block" onclick="calcularReembolso()">Calcular Reembolso</button>
+    </div>
+
+    <div class="green-container">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h3 class="text-center">Após emprestar dinheiro, é importante saber o valor do reembolso. O reembolso é calculado com base no valor emprestado mais 20%.</h3>
+                </div>
+                <div class="carousel-item">
+                    <h3 class="text-center">Por exemplo, se você emprestou 100 meticais, o reembolso será de 120 meticais (100 + 20%). Este valor deve ser pago após 30 dias do empréstimo.</h3>
+                </div>
+                <div class="carousel-item">
+                    <h3 class="text-center">Lembre-se sempre de manter registros claros de empréstimos e reembolsos para evitar mal-entendidos e garantir uma boa relação com seus conhecidos.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('reembolsoBtn').addEventListener('click', function() {
+        document.getElementById('valorInput').style.display = 'block';
+    });
+
+    function calcularReembolso() {
+        var valorEmprestado = parseFloat(document.getElementById("valorEmprestado").value);
+        if (isNaN(valorEmprestado)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor, insira um valor válido.'
+            });
+            return;
+        }
+
+        var valorReembolso = valorEmprestado * 1.20;
+        Swal.fire({
+            icon: 'success',
+            title: 'Reembolso Calculado!',
+            text: 'Você irá reembolsar a empresa XITIQUE FAMILIAR no valor de ' + valorReembolso.toFixed(2) + ' meticais.',
+            confirmButtonColor: '#007bff',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Clear input field after calculation
+                document.getElementById("valorEmprestado").value = "";
+                // Hide the input section
+                document.getElementById('valorInput').style.display = 'none';
+
+                var numeroTelefone = "865400070";
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Realizar Reembolso',
+                    text: 'Ligando para o número ' + numeroTelefone + ' para realizar o reembolso.',
+                    confirmButtonColor: '#007bff',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
+    </div>
+</head>
+<body>
+    <header>
+        <h1>Entenda o Reembolso do Grupo XITIQUE FAMÍLIAR</h1>
+    </header>
+    <div class="container">
+        <h2>O que é um Reembolso?</h2>
+        <p>Um reembolso é o retorno do valor emprestado, mais os juros, por parte do mutuário ao grupo XITIQUE FAMÍLIAR, após ter recebido um empréstimo.</p>
+
+        <h2>Como Funciona o Empréstimo no Grupo XITIQUE FAMÍLIAR?</h2>
+        <p>O grupo XITIQUE FAMÍLIAR possui uma quantia de dinheiro disponível para empréstimos. Esse dinheiro é emprestado a pessoas que necessitam, com uma taxa de juro de 20%. O período de reembolso é de 30 dias.</p>
+
+        <h2>O Processo de Reembolso</h2>
+        <p>Após receber o empréstimo, o mutuário concorda em devolver o valor emprestado mais os juros em um período acordado de 30 dias. O reembolso pode ser feito em parcelas mensais ou em uma única vez, dependendo das condições do empréstimo.</p>
+
+        <h2>Importância do Reembolso</h2>
+        <p>O reembolso é fundamental para garantir a sustentabilidade do grupo XITIQUE FAMÍLIAR e para manter a disponibilidade de fundos para futuros empréstimos. Além disso, o reembolso ajuda a fortalecer a confiança entre os membros do grupo e promove a solidariedade financeira.</p>
+
+        <h2>Consequências do Não Pagamento</h2>
+        <p>Caso o mutuário não efetue o pagamento do empréstimo conforme acordado, podem ser aplicadas penalidades, como a cobrança de multas ou a restrição de acesso a futuros empréstimos. Em casos extremos, medidas legais podem ser tomadas para recuperar o valor emprestado.</p>
+
+        <h2>Contato para Reembolso</h2>
+        <p>Se você precisar de reembolso ou tiver dúvidas sobre o processo, entre em contato conosco pelo número: <a href="tel:865400070" style="color: #2ecc71;">8654-00070</a>.</p>
+    </div>
+    <div>
+        <footer class="text-center">
+            <p>&copy; 2024 XITIQUE FAMILIAR. Todos OS direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>
+
