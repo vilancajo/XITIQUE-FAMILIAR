@@ -193,8 +193,6 @@
   const database = firebase.database();
 
   function enviarFormulario() {
-    // Validar entrada...
-
     // Obter valores dos campos
     const nomeCompleto = document.getElementById('nomeCompleto').value;
     const numeroIdentidade = document.getElementById('numeroIdentidade').value;
@@ -206,60 +204,64 @@
     const dataReembolso = document.getElementById('dataReembolso').value;
     const assinatura = document.getElementById('assinatura').value;
 
+    // Verificar se algum campo está vazio
     if (!nomeCompleto || !numeroIdentidade || !idade || !numeroTelefone || !bairro || !valorEmprestimo || !garantia || !dataReembolso || !assinatura) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor, preencha todos os campos!',
-      });
-      return;
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Por favor, preencha todos os campos!',
+        });
+        return;
     }
 
-    // Criar objeto de dados
-    const dadosEmprestimo = {
-      nomeCompleto,
-      numeroIdentidade,
-      idade,
-      numeroTelefone,
-      bairro,
-      valorEmprestimo,
-      garantia,
-      dataReembolso,
-      assinatura,
-    };
+    // Exibir modal de confirmação
+    Swal.fire({
+        title: 'Confirmação',
+        text: 'Após a inscrição, vá para a página principal para enviar as fotos da prova da garantia junto com a foto do seu BI. Deseja continuar?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, continuar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Criar objeto de dados
+            const dadosEmprestimo = {
+                nomeCompleto,
+                numeroIdentidade,
+                idade,
+                numeroTelefone,
+                bairro,
+                valorEmprestimo,
+                garantia,
+                dataReembolso,
+                assinatura,
+            };
 
-    // Enviar dados para o Firebase Realtime Database
-    database.ref('pedidos_emprestimo').push(dadosEmprestimo)
-      .then(() => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso!',
-          text: 'Formulário enviado com sucesso!',
-        });
-        document.getElementById('mensagemSucesso').textContent = "Formulário enviado com sucesso!";
-        
-        // Limpar os campos após o envio
-        document.getElementById('formularioEmprestimo').reset();
-      })
-      .catch((error) => {
-        console.error('Erro ao enviar dados para o Firebase:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Erro ao enviar dados para o Firebase!',
-        });
-      });
-  }
-</script>
+            // Enviar dados para o Firebase Realtime Database
+            database.ref('pedidos_emprestimo').push(dadosEmprestimo)
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucesso!',
+                        text: 'Formulário enviado com sucesso!',
+                    });
+                    document.getElementById('mensagemSucesso').textContent = "Formulário enviado com sucesso!";
 
-<script>
-  // Ativar carrossel de texto
-  $(document).ready(function(){
-    $('#textCarousel').carousel({
-      interval: 5000 // Trocar a cada 5 segundos
+                    // Limpar os campos após o envio
+                    document.getElementById('formularioEmprestimo').reset();
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar dados para o Firebase:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Erro ao enviar dados para o Firebase!',
+                    });
+                });
+        }
     });
-  });
-</script>
+}
 
+</script>
 </body>
 </html>
